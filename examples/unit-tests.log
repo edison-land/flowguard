@@ -1,0 +1,18 @@
+test_adapter_mode_required (test_flowguard.EvidenceTests.test_adapter_mode_required) ... ok
+test_bad_range (test_flowguard.EvidenceTests.test_bad_range) ... ok
+test_frontier_rationale_required (test_flowguard.EvidenceTests.test_frontier_rationale_required) ... ok
+test_gap_owner_required (test_flowguard.EvidenceTests.test_gap_owner_required) ... ok
+test_go_blocked (test_flowguard.EvidenceTests.test_go_blocked) ... ok
+test_missing_dependencies (test_flowguard.EvidenceTests.test_missing_dependencies) ... ok
+test_path_escape (test_flowguard.EvidenceTests.test_path_escape) ... ok
+test_snapshot_detects_untracked_change (test_flowguard.EvidenceTests.test_snapshot_detects_untracked_change) ... ok
+test_stale_evidence (test_flowguard.EvidenceTests.test_stale_evidence) ... ok
+test_symlink (test_flowguard.EvidenceTests.test_symlink) ... ok
+test_valid_and_no_mutation (test_flowguard.EvidenceTests.test_valid_and_no_mutation) ... ok
+test_waiver_required (test_flowguard.EvidenceTests.test_waiver_required) ... ok
+test_wrong_commit (test_flowguard.EvidenceTests.test_wrong_commit) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 1.303s
+
+OK

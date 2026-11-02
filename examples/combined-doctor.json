@@ -1,0 +1,17 @@
+{
+  "trailofbits": {
+    "available": true,
+    "entry": "work/upstream/trailofbits/plugins/audit-context-building/skills/audit-context-building/SKILL.md",
+    "reason": "pinned content verified"
+  },
+  "ecc": {
+    "available": true,
+    "entry": "work/upstream/ecc/skills/production-audit/SKILL.md",
+    "reason": "pinned content verified"
+  },
+  "excellence": {
+    "available": true,
+    "entry": "work/upstream/excellence/production-excellence/SKILL.md",
+    "reason": "pinned content verified"
+  }
+}

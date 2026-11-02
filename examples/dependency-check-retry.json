@@ -1,0 +1,18 @@
+{
+  "trailofbits": {
+    "available": true,
+    "runtime": "not-probed",
+    "entry": "work/upstream/trailofbits/plugins/audit-context-building/skills/audit-context-building/SKILL.md",
+    "reason": "pinned content verified"
+  },
+  "ecc": {
+    "available": true,
+    "runtime": "not-probed",
+    "entry": "work/upstream/ecc/skills/production-audit/SKILL.md",
+    "reason": "pinned content verified"
+  },
+  "excellence": {
+    "available": false,
+    "reason": "missing, unreadable or Git probe timed out"
+  }
+}

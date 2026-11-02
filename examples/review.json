@@ -1,0 +1,322 @@
+{
+  "version": 1,
+  "target": {
+    "commit": "af3d199c848a405ac221524d09e12b3adcaa0968",
+    "scope": "Provisional public paid launch of existing portfolio demo; source only; 4-minute focused follow-up."
+  },
+  "adapters": [
+    {
+      "name": "trailofbits",
+      "mode": "fallback",
+      "reason": "No native Workflow host or upstream registered function agent. Read upstream routing/resources for compatibility only; independent FlowGuard context below is not upstream execution.",
+      "loaded_paths": [
+        "plugins/audit-context-building/skills/audit-context-building/SKILL.md",
+        "plugins/audit-context-building/skills/audit-context-building/resources/ANALYSIS_FORMAT.md",
+        "plugins/audit-context-building/skills/audit-context-building/resources/DOMAIN_NOTES.md"
+      ],
+      "input_evidence_ids": [
+        "FG-01",
+        "FG-02"
+      ],
+      "output_artifact": "combined.md",
+      "limitations": "No native workflow; focused independent context, not per-function fan-out."
+    },
+    {
+      "name": "ecc",
+      "mode": "instruction-guided",
+      "reason": "Evaluate discovered failure paths using local evidence and counterevidence.",
+      "loaded_paths": [
+        "skills/production-audit/SKILL.md"
+      ],
+      "input_evidence_ids": [
+        "FG-01",
+        "FG-02",
+        "FG-03",
+        "FG-04"
+      ],
+      "output_artifact": "review.json",
+      "limitations": "Dynamic adaptation; no full ordered native run or composite score."
+    },
+    {
+      "name": "excellence",
+      "mode": "instruction-guided",
+      "reason": "Reconcile business, trust, persistence and release evidence.",
+      "loaded_paths": [
+        "production-excellence/SKILL.md",
+        "production-excellence/AGENTS.md",
+        "production-excellence/references/evidence-packet.md",
+        "production-excellence/references/gates.md",
+        "production-excellence/references/handoff-record.md",
+        "production-readiness/SKILL.md",
+        "verification-methodology/SKILL.md"
+      ],
+      "input_evidence_ids": [
+        "FG-01",
+        "FG-02",
+        "FG-03",
+        "FG-04"
+      ],
+      "output_artifact": "combined.md",
+      "limitations": "Unassigned owner and operational gaps; no full specialist exercise or authorized gate."
+    }
+  ],
+  "frontier": [
+    {
+      "trigger": "Authenticated routes query users.id using session.user.id",
+      "question": "What proves session ID belongs to local users table?",
+      "action": "Trace auth callbacks through upsertUser and SQL identity generation",
+      "observation": "upsert return discarded; JWT subject copied without local mapping",
+      "next": "FG-01: installed framework behavior needs isolated verification"
+    },
+    {
+      "trigger": "AI route writes org usage from previously read value",
+      "question": "What enforces allowance across requests?",
+      "action": "Read paid API helper, caller and migration",
+      "observation": "No bounded reservation found in supplied path",
+      "next": "FG-02; stop before runtime due read-only boundary"
+    },
+    {
+      "trigger": "Invoice reset mutates the same org counter",
+      "question": "Can retries erase accounted usage?",
+      "action": "Trace event handling and return path",
+      "observation": "Unconditional reset and unchecked mutation result",
+      "next": "FG-03/04; safe stub-based test remains open"
+    },
+    {
+      "trigger": "Blocking source mechanisms and unknown operator context",
+      "question": "Can this evidence support launch?",
+      "action": "Load cross-domain evidence and gate references",
+      "observation": "High risk from payment/auth dimensions; ownership/recovery/cost gaps",
+      "next": "No-go advisory; no launch approval"
+    }
+  ],
+  "coverage": [
+    {
+      "inspected": [
+        "auth callbacks",
+        "Supabase user provisioning",
+        "AI create route and provider helper",
+        "billing checkout/portal/webhook",
+        "SQL initial schema",
+        "README/package metadata"
+      ],
+      "not_inspected": [
+        "installed provider/auth SDK internals",
+        "deployment configuration",
+        "runtime behavior",
+        "external CI",
+        "full UI/accessibility",
+        "all sibling specialist runbooks"
+      ]
+    }
+  ],
+  "gaps": [
+    {
+      "scope": "identity",
+      "missing_evidence": "Installed auth library subject generation and isolated OAuth-to-local-user test",
+      "impact": "FG-01 remains hypothesis",
+      "owner": "unassigned",
+      "due": "unknown",
+      "next_safe_verification": "Read pinned dependency source then use provider stub offline"
+    },
+    {
+      "scope": "recovery",
+      "missing_evidence": "Migration/restore exercise and recovery plan for launch candidate",
+      "impact": "Cannot establish safe recovery",
+      "owner": "unassigned",
+      "due": "unknown",
+      "next_safe_verification": "Review operator-supplied rehearsal results"
+    },
+    {
+      "scope": "capacity/cost",
+      "missing_evidence": "Demand model, budget and concurrency tests",
+      "impact": "Cannot establish cost ceiling",
+      "owner": "unassigned",
+      "due": "unknown",
+      "next_safe_verification": "Request launch scope and bounded isolated workload evidence"
+    },
+    {
+      "scope": "ownership/release",
+      "missing_evidence": "Named accountable owner and approved release record",
+      "impact": "No authorization or Go can be inferred",
+      "owner": "unassigned",
+      "due": "unknown",
+      "next_safe_verification": "Operator supplies owner and release boundary"
+    },
+    {
+      "scope": "incident learning",
+      "missing_evidence": "Deployment history and relevant incidents",
+      "impact": "Cannot mark no prior incidents from repository alone",
+      "owner": "unassigned",
+      "due": "unknown",
+      "next_safe_verification": "Request history or explicit new-service declaration"
+    },
+    {
+      "scope": "verification",
+      "missing_evidence": "Build, dependency lock, CI and end-to-end results",
+      "impact": "All effects limited to source evidence",
+      "owner": "unassigned",
+      "due": "unknown",
+      "next_safe_verification": "Review isolated CI artifacts; do not run target by default"
+    }
+  ],
+  "findings": [
+    {
+      "id": "FG-01",
+      "claim": "Local user UUID is not connected to JWT subject in inspected auth path",
+      "status": "hypothesis",
+      "severity": "high",
+      "confidence": "medium",
+      "trigger": "First Google sign-in followed by an API request requiring local current_org_id",
+      "effect": "If framework token.sub differs from the generated database UUID, workspace lookup returns no workspace or a database error; launch-critical AI and billing flows fail.",
+      "evidence": [
+        {
+          "path": "src/auth.ts",
+          "line_start": 26,
+          "line_end": 37,
+          "sha256": "7f1cade120820a1697718532b75d98bc030cf25981ec96a54a8acb604681f7be"
+        },
+        {
+          "path": "src/auth.ts",
+          "line_start": 44,
+          "line_end": 77,
+          "sha256": "7f1cade120820a1697718532b75d98bc030cf25981ec96a54a8acb604681f7be"
+        },
+        {
+          "path": "src/lib/supabase.ts",
+          "line_start": 129,
+          "line_end": 166,
+          "sha256": "87676a98ccd35ded61790778af8f47be463d590594413bfda354018b0250166e"
+        },
+        {
+          "path": "supabase/migrations/001_initial.sql",
+          "line_start": 24,
+          "line_end": 32,
+          "sha256": "794b8bb5ab9e3ca6f4e3405f9b897ed533de1d03b66afbd04c723f7f7bf9dfef"
+        },
+        {
+          "path": "src/app/api/insights/route.ts",
+          "line_start": 63,
+          "line_end": 70,
+          "sha256": "0422ccbfa494bb2f7b82fe988deef0aea32f64efa6a21cb96fc690f5148b7b68"
+        }
+      ],
+      "counterevidence": [
+        "Authentication library implementation is not present; token.sub behavior has not been executed. No assertion of actual production failure.",
+        "upsertUser creates and links a local workspace; failure is identity propagation rather than absence of provisioning."
+      ],
+      "boundary": "source",
+      "remedy": "Map returned local user id into signed token/session and verify an isolated sign-in-to-query integration test."
+    },
+    {
+      "id": "FG-02",
+      "claim": "AI allowance uses non-atomic read/check/write",
+      "status": "source-observed",
+      "severity": "high",
+      "confidence": "high",
+      "trigger": "Two requests read the same remaining allowance before either update",
+      "effect": "Both can invoke paid AI and persist the same increment; runtime exploitation not executed.",
+      "evidence": [
+        {
+          "path": "src/app/api/insights/route.ts",
+          "line_start": 73,
+          "line_end": 115,
+          "sha256": "0422ccbfa494bb2f7b82fe988deef0aea32f64efa6a21cb96fc690f5148b7b68"
+        },
+        {
+          "path": "src/lib/openai.ts",
+          "line_start": 48,
+          "line_end": 62,
+          "sha256": "9887a45ca7780eaa4f15583f85c6c6d9abae9c85880b892a8535934b6177c9c5"
+        },
+        {
+          "path": "supabase/migrations/001_initial.sql",
+          "line_start": 9,
+          "line_end": 21,
+          "sha256": "794b8bb5ab9e3ca6f4e3405f9b897ed533de1d03b66afbd04c723f7f7bf9dfef"
+        }
+      ],
+      "counterevidence": [
+        "Prompt length is bounded at route lines 50-59.",
+        "Identity issue FG-01 may prevent this path until fixed; logged-in reachability is conditional on valid local user identity."
+      ],
+      "boundary": "source",
+      "remedy": "Atomic bounded reservation before paid work, idempotency and failure reconciliation."
+    },
+    {
+      "id": "FG-03",
+      "claim": "Payment event retries can reset consumed allowance",
+      "status": "source-observed",
+      "severity": "high",
+      "confidence": "high",
+      "trigger": "Repeat invoice.payment_succeeded after allowance was consumed",
+      "effect": "Usage is reset to zero again; signature checks do not deduplicate event delivery.",
+      "evidence": [
+        {
+          "path": "src/app/api/billing/webhook/route.ts",
+          "line_start": 19,
+          "line_end": 24,
+          "sha256": "aa01d958571161255e3ebad5f41feafe900d73bb33330f4631b6a89ff260aad3"
+        },
+        {
+          "path": "src/app/api/billing/webhook/route.ts",
+          "line_start": 94,
+          "line_end": 122,
+          "sha256": "aa01d958571161255e3ebad5f41feafe900d73bb33330f4631b6a89ff260aad3"
+        },
+        {
+          "path": "supabase/migrations/001_initial.sql",
+          "line_start": 9,
+          "line_end": 21,
+          "sha256": "794b8bb5ab9e3ca6f4e3405f9b897ed533de1d03b66afbd04c723f7f7bf9dfef"
+        }
+      ],
+      "counterevidence": [
+        "Raw-body signature verification is present.",
+        "No endpoint invoked or provider delivery replay executed."
+      ],
+      "boundary": "source",
+      "remedy": "Persist unique invoice/event application and reset atomically; test replay and ordering in isolation."
+    },
+    {
+      "id": "FG-04",
+      "claim": "Webhook update results are not checked before acknowledgement",
+      "status": "hypothesis",
+      "severity": "high",
+      "confidence": "medium",
+      "trigger": "Database update returns error field without throwing",
+      "effect": "Handler returns received=true although entitlement write failed, preventing ordinary webhook retries.",
+      "evidence": [
+        {
+          "path": "src/app/api/billing/webhook/route.ts",
+          "line_start": 43,
+          "line_end": 52,
+          "sha256": "aa01d958571161255e3ebad5f41feafe900d73bb33330f4631b6a89ff260aad3"
+        },
+        {
+          "path": "src/app/api/billing/webhook/route.ts",
+          "line_start": 105,
+          "line_end": 122,
+          "sha256": "aa01d958571161255e3ebad5f41feafe900d73bb33330f4631b6a89ff260aad3"
+        },
+        {
+          "path": "src/lib/supabase.ts",
+          "line_start": 95,
+          "line_end": 103,
+          "sha256": "87676a98ccd35ded61790778af8f47be463d590594413bfda354018b0250166e"
+        }
+      ],
+      "counterevidence": [
+        "Thrown exceptions return 500.",
+        "Exact installed Supabase failure behavior not exercised; error-checking pattern elsewhere supports the hypothesis."
+      ],
+      "boundary": "source",
+      "remedy": "Check mutation error results and make retries safe."
+    }
+  ],
+  "decision": {
+    "outcome": "No-go",
+    "rationale": "Source-level accounting/retry mechanisms and unresolved launch-critical identity mapping prevent recommending scoped public paid launch; operational evidence gaps remain.",
+    "owner": "unassigned"
+  }
+}

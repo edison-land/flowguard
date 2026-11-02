@@ -1,0 +1,4 @@
+interface:
+  display_name: "FlowGuard"
+  short_description: "Evidence-led launch review with traceable findings"
+  default_prompt: "Use $flowguard to review this repository for launch risks, default to read-only, and save reports outside the repository."

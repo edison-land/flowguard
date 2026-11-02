@@ -1,0 +1,51 @@
+{
+  "name": "edison-flowguard",
+  "version": "0.1.0",
+  "description": "Evidence-led launch risk review skill for Claude Code and Codex",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "flowguard": "bin/flowguard.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "bin/",
+    "SKILL.md",
+    "agents/",
+    "references/",
+    "scripts/flowguard.py",
+    "dependencies.lock.json",
+    "DEPENDENCIES.md",
+    "LICENSE",
+    "README.md",
+    "README.zh-CN.md",
+    "docs/",
+    "SECURITY.md",
+    "CONTRIBUTING.md"
+  ],
+  "scripts": {
+    "test": "node --test tests/installer.test.mjs",
+    "test:python": "python3 -m unittest discover -s tests -v"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edison-land/flowguard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/edison-land/flowguard/issues"
+  },
+  "homepage": "https://github.com/edison-land/flowguard#readme",
+  "keywords": [
+    "agent-skills",
+    "claude-code",
+    "codex",
+    "security-review",
+    "launch-review"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}
